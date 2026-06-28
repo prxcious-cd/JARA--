@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="JARA ∆ — Find What You Need On Campus. Discover products, services, tutors and opportunities around you." />
+  <meta name="theme-color" content="#0A0A0F" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="JARA ∆ — Find What You Need On Campus" />
+  <meta property="og:description" content="Students search for what they need. JARA finds the right seller or provider." />
+  <meta property="og:type" content="website" />
+
+  <title>JARA ∆ — Find What You Need On Campus</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- ==============================
+       NAVIGATION
+  ============================== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">
+        JARA <span class="nav__logo-delta">∆</span>
+      </a>
+      <div class="nav__actions">
+        <!-- Updated paths to match auth/ folder structure -->
+        <a href="auth/login.html" class="btn btn--ghost">Log in</a>
+        <a href="auth/signup.html" class="btn btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==============================
+       HERO SECTION
+  ============================== -->
+  <section class="hero" id="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <div class="hero__eyebrow">Campus Marketplace · Nigeria</div>
+
+      <h1 class="hero__headline">
+        Find What You<br />
+        <span class="hero__headline-accent">Need On Campus.</span>
+      </h1>
+
+      <p class="hero__subtext">
+        Students search for what they need.<br />
+        JARA finds the right seller, tutor or service — instantly.
+      </p>
+
+      <!-- Animated Search Bar
+           JS cycles through search terms defined in main.js -->
+      <div class="hero__search" id="heroSearch" aria-label="Search preview">
+        <i class="fa-solid fa-magnifying-glass hero__search-icon"></i>
+        <span class="hero__search-text" id="heroSearchText">Generator...</span>
+        <div class="hero__search-pulse" aria-hidden="true"></div>
+      </div>
+
+      <!-- Trending Searches
+           Clickable chips that pre-fill a future search input -->
+      <div class="hero__trending" aria-label="Trending searches">
+        <span class="hero__trending-label">
+          <i class="fa-solid fa-fire"></i> Trending:
+        </span>
+        <div class="hero__trending-chips">
+          <a href="auth/signup.html" class="trend-chip">Generator</a>
+          <a href="auth/signup.html" class="trend-chip">Haircut</a>
+          <a href="auth/signup.html" class="trend-chip">Cakes</a>
+          <a href="auth/signup.html" class="trend-chip">Tutor</a>
+          <a href="auth/signup.html" class="trend-chip">Generator Repair</a>
+          <a href="auth/signup.html" class="trend-chip">Shoes</a>
+          <a href="auth/signup.html" class="trend-chip">Books</a>
+          <a href="auth/signup.html" class="trend-chip">Laundry</a>
+        </div>
+      </div>
+
+      <div class="hero__cta-group">
+        <a href="auth/signup.html" class="btn btn--primary btn--large">
+          Start Exploring <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="#how-it-works" class="btn btn--ghost btn--large">See How It Works</a>
+      </div>
+
+      <p class="hero__trust">Free to join · No payment required · Built for students</p>
+    </div>
+
+    <!-- Floating category chips (decorative) -->
+    <div class="hero__chips" aria-hidden="true">
+      <span class="chip">📚 Textbooks</span>
+      <span class="chip">🍛 Food</span>
+      <span class="chip">✂️ Haircut</span>
+      <span class="chip">💻 Laptop Repair</span>
+      <span class="chip">📝 Tutoring</span>
+      <span class="chip">🎨 Design</span>
+      <span class="chip">🏠 Hostel Items</span>
+      <span class="chip">💆 Laundry</span>
+    </div>
+  </section>
+
+  <!-- ==============================
+       CATEGORIES SECTION
+  ============================== -->
+  <section class="categories" id="categories">
+    <div class="section-inner">
+      <p class="section-eyebrow">What students search for</p>
+      <h2 class="section-title">Every Need. One Platform.</h2>
+
+      <div class="categories__grid">
+        <div class="category-card">
+          <div class="category-card__icon">📚</div>
+          <h3 class="category-card__name">Books & Stationery</h3>
+          <p class="category-card__desc">Textbooks, notes, past questions</p>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">🍛</div>
+          <h3 class="category-card__name">Food & Drinks</h3>
+          <p class="category-card__desc">Meals, snacks, drinks on campus</p>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">👨‍🏫</div>
+          <h3 class="category-card__name">Tutors</h3>
+          <p class="category-card__desc">Any course, any level</p>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">💻</div>
+          <h3 class="category-card__name">Tech & Repairs</h3>
+          <p class="category-card__desc">Phones, laptops, gadgets</p>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">✂️</div>
+          <h3 class="category-card__name">Personal Care</h3>
+          <p class="category-card__desc">Haircuts, skincare, grooming</p>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">🎨</div>
+          <h3 class="category-card__name">Creative Services</h3>
+          <p class="category-card__desc">Design, photography, video</p>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">🏠</div>
+          <h3 class="category-card__name">Hostel & Home</h3>
+          <p class="category-card__desc">Furniture, appliances, cleaning</p>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">💆</div>
+          <h3 class="category-card__name">Laundry & Errands</h3>
+          <p class="category-card__desc">Pickup, delivery, tasks</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       FEATURED LISTINGS SECTION
+       Demo cards showing platform content
+  ============================== -->
+  <section class="listings" id="featured-listings">
+    <div class="section-inner">
+      <p class="section-eyebrow">Live on the platform</p>
+      <h2 class="section-title">Featured Listings</h2>
+
+      <div class="listings__grid">
+
+        <!-- Listing Card 1 -->
+        <article class="listing-card">
+          <div class="listing-card__image-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop"
+              alt="Honda generator for rent"
+              class="listing-card__image"
+              loading="lazy"
+            />
+            <span class="listing-card__badge listing-card__badge--category">Power</span>
+          </div>
+          <div class="listing-card__body">
+            <div class="listing-card__top">
+              <h3 class="listing-card__title">Honda Generator — 2.5KVA for Rent</h3>
+              <span class="listing-card__price">₦2,500<span>/night</span></span>
+            </div>
+            <p class="listing-card__seller">
+              <i class="fa-solid fa-circle-user"></i>
+              Emeka J.
+              <span class="verified-badge" title="Verified seller">
+                <i class="fa-solid fa-circle-check"></i> Verified
+              </span>
+            </p>
+          </div>
+        </article>
+
+        <!-- Listing Card 2 -->
+        <article class="listing-card">
+          <div class="listing-card__image-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1481833761820-0509d3217039?w=400&h=280&fit=crop"
+              alt="Custom birthday cake"
+              class="listing-card__image"
+              loading="lazy"
+            />
+            <span class="listing-card__badge listing-card__badge--category">Food</span>
+          </div>
+          <div class="listing-card__body">
+            <div class="listing-card__top">
+              <h3 class="listing-card__title">Custom Birthday Cakes — Order Ahead</h3>
+              <span class="listing-card__price">From ₦8,000</span>
+            </div>
+            <p class="listing-card__seller">
+              <i class="fa-solid fa-circle-user"></i>
+              Blessing A.
+              <span class="verified-badge" title="Verified seller">
+                <i class="fa-solid fa-circle-check"></i> Verified
+              </span>
+            </p>
+          </div>
+        </article>
+
+        <!-- Listing Card 3 -->
+        <article class="listing-card">
+          <div class="listing-card__image-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1524578271613-d550eacf6090?w=400&h=280&fit=crop"
+              alt="Laptop repair service"
+              class="listing-card__image"
+              loading="lazy"
+            />
+            <span class="listing-card__badge listing-card__badge--category">Tech</span>
+          </div>
+          <div class="listing-card__body">
+            <div class="listing-card__top">
+              <h3 class="listing-card__title">Laptop Repairs — Fast Turnaround</h3>
+              <span class="listing-card__price">From ₦3,000</span>
+            </div>
+            <p class="listing-card__seller">
+              <i class="fa-solid fa-circle-user"></i>
+              Chukwudi T.
+            </p>
+          </div>
+        </article>
+
+        <!-- Listing Card 4 -->
+        <article class="listing-card">
+          <div class="listing-card__image-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&h=280&fit=crop"
+              alt="Used economics textbooks"
+              class="listing-card__image"
+              loading="lazy"
+            />
+            <span class="listing-card__badge listing-card__badge--category">Books</span>
+          </div>
+          <div class="listing-card__body">
+            <div class="listing-card__top">
+              <h3 class="listing-card__title">Fairly Used Economics Textbooks — 200L</h3>
+              <span class="listing-card__price">₦4,500</span>
+            </div>
+            <p class="listing-card__seller">
+              <i class="fa-solid fa-circle-user"></i>
+              Adaeze O.
+            </p>
+          </div>
+        </article>
+
+        <!-- Listing Card 5 -->
+        <article class="listing-card">
+          <div class="listing-card__image-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=280&fit=crop"
+              alt="Graphic design services"
+              class="listing-card__image"
+              loading="lazy"
+            />
+            <span class="listing-card__badge listing-card__badge--category">Creative</span>
+          </div>
+          <div class="listing-card__body">
+            <div class="listing-card__top">
+              <h3 class="listing-card__title">Graphic Design — Flyers, Logos & More</h3>
+              <span class="listing-card__price">From ₦2,000</span>
+            </div>
+            <p class="listing-card__seller">
+              <i class="fa-solid fa-circle-user"></i>
+              Zainab M.
+              <span class="verified-badge" title="Verified seller">
+                <i class="fa-solid fa-circle-check"></i> Verified
+              </span>
+            </p>
+          </div>
+        </article>
+
+        <!-- Listing Card 6 -->
+        <article class="listing-card">
+          <div class="listing-card__image-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?w=400&h=280&fit=crop"
+              alt="Hostel room cleaning"
+              class="listing-card__image"
+              loading="lazy"
+            />
+            <span class="listing-card__badge listing-card__badge--category">Errands</span>
+          </div>
+          <div class="listing-card__body">
+            <div class="listing-card__top">
+              <h3 class="listing-card__title">Hostel Room Cleaning — Weekly Plans</h3>
+              <span class="listing-card__price">₦1,500<span>/session</span></span>
+            </div>
+            <p class="listing-card__seller">
+              <i class="fa-solid fa-circle-user"></i>
+              Kemi F.
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="listings__cta">
+        <a href="auth/signup.html" class="btn btn--ghost">
+          View All Listings <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       FEATURED SELLERS SECTION
+       Premium / top-rated sellers
+  ============================== -->
+  <section class="sellers" id="featured-sellers">
+    <div class="section-inner">
+      <p class="section-eyebrow">Top-rated on JARA</p>
+      <h2 class="section-title">Featured Sellers</h2>
+      <p class="section-subtitle">Students and providers who are crushing it on campus.</p>
+
+      <div class="sellers__grid">
+
+        <!-- Seller Card 1 -->
+        <article class="seller-card">
+          <div class="seller-card__header">
+            <div class="seller-card__avatar" aria-label="Emeka J.">EJ</div>
+            <div class="seller-card__premium-badge" title="Premium Seller">
+              <i class="fa-solid fa-crown"></i> Premium
+            </div>
+          </div>
+          <h3 class="seller-card__name">Emeka J.</h3>
+          <p class="seller-card__specialty">Power &amp; Generator Rentals</p>
+          <div class="seller-card__stats">
+            <span><i class="fa-solid fa-star"></i> 4.9</span>
+            <span><i class="fa-solid fa-bag-shopping"></i> 83 sales</span>
+          </div>
+          <a href="auth/signup.html" class="btn btn--ghost btn--sm">View Profile</a>
+        </article>
+
+        <!-- Seller Card 2 -->
+        <article class="seller-card">
+          <div class="seller-card__header">
+            <div class="seller-card__avatar" aria-label="Blessing A.">BA</div>
+            <div class="seller-card__premium-badge" title="Premium Seller">
+              <i class="fa-solid fa-crown"></i> Premium
+            </div>
+          </div>
+          <h3 class="seller-card__name">Blessing A.</h3>
+          <p class="seller-card__specialty">Custom Cakes &amp; Pastries</p>
+          <div class="seller-card__stats">
+            <span><i class="fa-solid fa-star"></i> 5.0</span>
+            <span><i class="fa-solid fa-bag-shopping"></i> 61 sales</span>
+          </div>
+          <a href="auth/signup.html" class="btn btn--ghost btn--sm">View Profile</a>
+        </article>
+
+        <!-- Seller Card 3 -->
+        <article class="seller-card">
+          <div class="seller-card__header">
+            <div class="seller-card__avatar" aria-label="Zainab M.">ZM</div>
+            <div class="seller-card__premium-badge" title="Premium Seller">
+              <i class="fa-solid fa-crown"></i> Premium
+            </div>
+          </div>
+          <h3 class="seller-card__name">Zainab M.</h3>
+          <p class="seller-card__specialty">Graphic Design &amp; Branding</p>
+          <div class="seller-card__stats">
+            <span><i class="fa-solid fa-star"></i> 4.8</span>
+            <span><i class="fa-solid fa-bag-shopping"></i> 47 sales</span>
+          </div>
+          <a href="auth/signup.html" class="btn btn--ghost btn--sm">View Profile</a>
+        </article>
+
+        <!-- Seller Card 4 -->
+        <article class="seller-card">
+          <div class="seller-card__header">
+            <div class="seller-card__avatar" aria-label="Chukwudi T.">CT</div>
+            <div class="seller-card__premium-badge" title="Premium Seller">
+              <i class="fa-solid fa-crown"></i> Premium
+            </div>
+          </div>
+          <h3 class="seller-card__name">Chukwudi T.</h3>
+          <p class="seller-card__specialty">Tech Repairs &amp; Support</p>
+          <div class="seller-card__stats">
+            <span><i class="fa-solid fa-star"></i> 4.7</span>
+            <span><i class="fa-solid fa-bag-shopping"></i> 120 sales</span>
+          </div>
+          <a href="auth/signup.html" class="btn btn--ghost btn--sm">View Profile</a>
+        </article>
+
+      </div>
+
+      <div class="sellers__cta">
+        <a href="auth/signup.html" class="btn btn--ghost">
+          Become a Premium Seller <i class="fa-solid fa-crown"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       HOW IT WORKS
+  ============================== -->
+  <section class="how" id="how-it-works">
+    <div class="section-inner">
+      <p class="section-eyebrow">Simple by design</p>
+      <h2 class="section-title">How JARA Works</h2>
+
+      <div class="how__steps">
+        <div class="how__step">
+          <div class="how__step-number">1</div>
+          <h3 class="how__step-title">Search for what you need</h3>
+          <p class="how__step-desc">Type what you're looking for — a tutor, food, a service. No need to know who sells it.</p>
+        </div>
+        <div class="how__step-divider" aria-hidden="true"></div>
+        <div class="how__step">
+          <div class="how__step-number">2</div>
+          <h3 class="how__step-title">JARA finds the right match</h3>
+          <p class="how__step-desc">We surface verified sellers, tutors and providers near you on campus.</p>
+        </div>
+        <div class="how__step-divider" aria-hidden="true"></div>
+        <div class="how__step">
+          <div class="how__step-number">3</div>
+          <h3 class="how__step-title">Connect and get it done</h3>
+          <p class="how__step-desc">Reach out directly, agree a price, and get what you need. Fast, simple, safe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       TESTIMONIALS / SOCIAL PROOF
+  ============================== -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-inner">
+      <p class="section-eyebrow">Early community</p>
+      <h2 class="section-title">Built for Students, by Students.</h2>
+
+      <div class="testimonials__grid">
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">"I found a GST tutor in under 2 minutes. I would have spent hours asking around."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">AO</div>
+            <div>
+              <strong>Adaeze O.</strong>
+              <span>100L, Economics</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">"I list my meals on JARA and get orders from my floor. No stress, no middleman."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">FK</div>
+            <div>
+              <strong>Fatima K.</strong>
+              <span>300L, Mass Comm</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">"Sold my old textbooks within a day. JARA is just built different."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">TE</div>
+            <div>
+              <strong>Tunde E.</strong>
+              <span>400L, Engineering</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       FINAL CTA SECTION
+  ============================== -->
+  <section class="cta-section">
+    <div class="section-inner cta-section__inner">
+      <div class="cta-section__glow" aria-hidden="true"></div>
+      <h2 class="cta-section__title">Your campus.<br />Everything you need.</h2>
+      <!-- Updated to a realistic early-stage message -->
+      <p class="cta-section__sub">
+        Be among the first students building the JARA community.
+      </p>
+      <a href="auth/signup.html" class="btn btn--primary btn--large">
+        Create Free Account <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==============================
+       FOOTER
+  ============================== -->
+  <footer class="footer">
+    <div class="footer__inner">
+
+      <!-- Brand -->
+      <div class="footer__brand">
+        <a href="/" class="nav__logo">JARA <span class="nav__logo-delta">∆</span></a>
+        <p>Find What You Need On Campus.</p>
+      </div>
+
+      <!-- Footer Nav Links -->
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <div class="footer__nav-group">
+          <h4 class="footer__nav-heading">Company</h4>
+          <a href="#">About</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+        <div class="footer__nav-group">
+          <h4 class="footer__nav-heading">Help</h4>
+          <a href="#">Support</a>
+          <a href="#">Report User</a>
+        </div>
+        <div class="footer__nav-group">
+          <h4 class="footer__nav-heading">Sellers</h4>
+          <a href="auth/signup.html">Become Premium</a>
+          <!-- ==========================
+               CHANGE THIS
+               Replace number with your real WhatsApp number in international format
+          ========================== -->
+          <a href="https://wa.me/2347073436050" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Contact
+          </a>
+        </div>
+      </nav>
+
+    </div>
+
+    <!-- Footer Bottom Bar -->
+    <div class="footer__bottom">
+      <p>© 2025 JARA ∆. Built in Nigeria 🇳🇬</p>
+      <div class="footer__social">
+        <a href="https://wa.me/2347073436050" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JS -->
+  <script src="js/main.js"></script>
+
+</body>
+          </html>
