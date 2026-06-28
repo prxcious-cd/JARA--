@@ -1,3 +1,4 @@
+alert("JARA JS IS RUNNING");
 /* ============================================================
    JARA ∆ — Main JavaScript
    main.js · /js/main.js
