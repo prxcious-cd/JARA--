@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Log in to JARA ∆ — Find What You Need On Campus." />
+  <meta name="theme-color" content="#0A0A0F" />
+  <title>Log In — JARA ∆</title>
+
+  <!-- Google Fonts — same as landing page -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Font Awesome — same as landing page -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <!-- Login page styles -->
+  <link rel="stylesheet" href="../css/login.css" />
+
+  <!-- Supabase SDK — must load before our client script -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Shared Supabase client — sets window._supabase -->
+  <script src="../js/supabase-client.js"></script>
+</head>
+
+<body>
+
+  <!-- ==============================
+       BACKGROUND GLOW ORB
+       Decorative — matches landing page hero atmosphere
+  ============================== -->
+  <div class="page-glow" aria-hidden="true"></div>
+
+  <!-- ==============================
+       NAVIGATION BAR
+       Minimal — just logo and a back link
+  ============================== -->
+  <nav class="auth-nav">
+    <a href="../index.html" class="auth-nav__logo" aria-label="Back to JARA home">
+      JARA <span class="auth-nav__logo-delta">∆</span>
+    </a>
+    <a href="../index.html" class="auth-nav__back">
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+      Back to home
+    </a>
+  </nav>
+
+  <!-- ==============================
+       MAIN CONTENT
+  ============================== -->
+  <main class="auth-main">
+    <div class="auth-card">
+
+      <!-- Card heading -->
+      <div class="auth-card__header">
+        <h1 class="auth-card__title">Welcome back</h1>
+        <p class="auth-card__subtitle">
+          Log in to your JARA account to continue.
+        </p>
+      </div>
+
+      <!-- ==============================
+           GLOBAL ALERT BANNER
+           Hidden by default. JS shows it on success or error.
+      ============================== -->
+      <div
+        class="auth-alert"
+        id="authAlert"
+        role="alert"
+        aria-live="polite"
+        aria-atomic="true"
+        hidden
+      >
+        <i class="auth-alert__icon fa-solid fa-circle-exclamation" id="alertIcon" aria-hidden="true"></i>
+        <span class="auth-alert__message" id="alertMessage"></span>
+      </div>
+
+      <!-- ==============================
+           LOGIN FORM
+      ============================== -->
+      <form class="auth-form" id="loginForm" novalidate>
+
+        <!-- Email field -->
+        <div class="field" id="fieldEmail">
+          <label class="field__label" for="email">
+            Email address
+          </label>
+          <div class="field__input-wrap">
+            <i class="field__icon fa-solid fa-envelope" aria-hidden="true"></i>
+            <input
+              class="field__input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@university.edu.ng"
+              autocomplete="email"
+              inputmode="email"
+              required
+              aria-describedby="emailError"
+            />
+          </div>
+          <p class="field__error" id="emailError" role="alert" aria-live="polite" hidden>
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <span id="emailErrorText"></span>
+          </p>
+        </div>
+
+        <!-- Password field -->
+        <div class="field" id="fieldPassword">
+          <div class="field__label-row">
+            <label class="field__label" for="password">
+              Password
+            </label>
+            <!-- Forgot password link sits on same row as label -->
+            <a
+              href="forgot-password.html"
+              class="field__forgot"
+              tabindex="0"
+            >
+              Forgot password?
+            </a>
+          </div>
+          <div class="field__input-wrap">
+            <i class="field__icon fa-solid fa-lock" aria-hidden="true"></i>
+            <input
+              class="field__input field__input--has-toggle"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+              aria-describedby="passwordError"
+            />
+            <!-- Show / hide password toggle -->
+            <button
+              type="button"
+              class="field__toggle"
+              id="togglePassword"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              <i class="fa-solid fa-eye" id="togglePasswordIcon" aria-hidden="true"></i>
+            </button>
+          </div>
+          <p class="field__error" id="passwordError" role="alert" aria-live="polite" hidden>
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <span id="passwordErrorText"></span>
+          </p>
+        </div>
+
+        <!-- Submit button -->
+        <button
+          type="submit"
+          class="btn-submit"
+          id="submitBtn"
+          aria-busy="false"
+        >
+          <!-- Spinner — hidden until loading state -->
+          <span class="btn-submit__spinner" aria-hidden="true">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+          </span>
+          <!-- Button label -->
+          <span class="btn-submit__label">
+            Log In
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </span>
+        </button>
+
+      </form>
+
+      <!-- ==============================
+           FOOTER LINK
+           Links to signup
+      ============================== -->
+      <p class="auth-card__footer">
+        Don't have an account?
+        <a href="signup.html" class="auth-card__footer-link">
+          Create one free
+        </a>
+      </p>
+
+    </div><!-- /auth-card -->
+  </main>
+
+  <!-- Login page logic -->
+  <script src="../js/login.js"></script>
+
+</body>
+  </html>
