@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Create your free JARA ∆ account — Find What You Need On Campus." />
+  <meta name="theme-color" content="#0A0A0F" />
+  <title>Create Account — JARA ∆</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <!-- Signup styles -->
+  <link rel="stylesheet" href="../css/signup.css" />
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Shared Supabase client — sets window._supabase -->
+  <script src="../js/supabase-client.js"></script>
+</head>
+
+<body>
+
+  <!-- Background glow -->
+  <div class="page-glow" aria-hidden="true"></div>
+
+  <!-- ==============================
+       NAVIGATION
+  ============================== -->
+  <nav class="auth-nav">
+    <a href="../index.html" class="auth-nav__logo" aria-label="Back to JARA home">
+      JARA <span class="auth-nav__logo-delta">∆</span>
+    </a>
+    <a href="../index.html" class="auth-nav__back">
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+      Back to home
+    </a>
+  </nav>
+
+  <!-- ==============================
+       MAIN
+  ============================== -->
+  <main class="auth-main">
+
+    <!-- ==============================
+         SIGNUP FORM CARD
+         Shown by default. Hidden after success.
+    ============================== -->
+    <div class="auth-card" id="signupCard">
+
+      <div class="auth-card__header">
+        <h1 class="auth-card__title">Create your account</h1>
+        <p class="auth-card__subtitle">
+          Free to join. Find everything you need on campus.
+        </p>
+      </div>
+
+      <!-- Global alert banner -->
+      <div
+        class="auth-alert"
+        id="authAlert"
+        role="alert"
+        aria-live="polite"
+        aria-atomic="true"
+        hidden
+      >
+        <i class="auth-alert__icon fa-solid fa-circle-exclamation" id="alertIcon" aria-hidden="true"></i>
+        <span class="auth-alert__message" id="alertMessage"></span>
+      </div>
+
+      <!-- Signup form -->
+      <form class="auth-form" id="signupForm" novalidate>
+
+        <!-- Full Name -->
+        <div class="field" id="fieldFullName">
+          <label class="field__label" for="fullName">Full name</label>
+          <div class="field__input-wrap">
+            <i class="field__icon fa-solid fa-user" aria-hidden="true"></i>
+            <input
+              class="field__input"
+              type="text"
+              id="fullName"
+              name="fullName"
+              placeholder="e.g. Adaeze Okonkwo"
+              autocomplete="name"
+              required
+              aria-describedby="fullNameError"
+            />
+          </div>
+          <p class="field__error" id="fullNameError" role="alert" aria-live="polite" hidden>
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <span id="fullNameErrorText"></span>
+          </p>
+        </div>
+
+        <!-- Email -->
+        <div class="field" id="fieldEmail">
+          <label class="field__label" for="email">Email address</label>
+          <div class="field__input-wrap">
+            <i class="field__icon fa-solid fa-envelope" aria-hidden="true"></i>
+            <input
+              class="field__input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@university.edu.ng"
+              autocomplete="email"
+              inputmode="email"
+              required
+              aria-describedby="emailError"
+            />
+          </div>
+          <p class="field__error" id="emailError" role="alert" aria-live="polite" hidden>
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <span id="emailErrorText"></span>
+          </p>
+        </div>
+
+        <!-- Password -->
+        <div class="field" id="fieldPassword">
+          <label class="field__label" for="password">Password</label>
+          <div class="field__input-wrap">
+            <i class="field__icon fa-solid fa-lock" aria-hidden="true"></i>
+            <input
+              class="field__input field__input--has-toggle"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="At least 8 characters"
+              autocomplete="new-password"
+              required
+              aria-describedby="passwordStrengthLabel passwordError"
+            />
+            <button
+              type="button"
+              class="field__toggle"
+              id="togglePassword"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              <i class="fa-solid fa-eye" id="togglePasswordIcon" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <!-- Password strength indicator -->
+          <div class="strength" id="strengthMeter" aria-hidden="true">
+            <div class="strength__bars">
+              <span class="strength__bar" id="bar1"></span>
+              <span class="strength__bar" id="bar2"></span>
+              <span class="strength__bar" id="bar3"></span>
+              <span class="strength__bar" id="bar4"></span>
+            </div>
+            <span class="strength__label" id="passwordStrengthLabel"></span>
+          </div>
+
+          <p class="field__error" id="passwordError" role="alert" aria-live="polite" hidden>
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <span id="passwordErrorText"></span>
+          </p>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="field" id="fieldConfirmPassword">
+          <label class="field__label" for="confirmPassword">Confirm password</label>
+          <div class="field__input-wrap">
+            <i class="field__icon fa-solid fa-lock" aria-hidden="true"></i>
+            <input
+              class="field__input field__input--has-toggle"
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Re-enter your password"
+              autocomplete="new-password"
+              required
+              aria-describedby="confirmPasswordError"
+            />
+            <button
+              type="button"
+              class="field__toggle"
+              id="toggleConfirmPassword"
+              aria-label="Show confirm password"
+              aria-pressed="false"
+            >
+              <i class="fa-solid fa-eye" id="toggleConfirmIcon" aria-hidden="true"></i>
+            </button>
+          </div>
+          <p class="field__error" id="confirmPasswordError" role="alert" aria-live="polite" hidden>
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <span id="confirmPasswordErrorText"></span>
+          </p>
+        </div>
+
+        <!-- Terms & Conditions checkbox -->
+        <div class="field field--checkbox" id="fieldTerms">
+          <label class="checkbox-label" for="acceptTerms">
+            <input
+              class="checkbox-label__input"
+              type="checkbox"
+              id="acceptTerms"
+              name="acceptTerms"
+              required
+              aria-describedby="termsError"
+            />
+            <span class="checkbox-label__box" aria-hidden="true">
+              <i class="fa-solid fa-check"></i>
+            </span>
+            <span class="checkbox-label__text">
+              I agree to the
+              <a href="../pages/terms.html" target="_blank" rel="noopener" class="checkbox-label__link">
+                Terms of Service
+              </a>
+              and
+              <a href="../pages/privacy.html" target="_blank" rel="noopener" class="checkbox-label__link">
+                Privacy Policy
+              </a>
+            </span>
+          </label>
+          <p class="field__error" id="termsError" role="alert" aria-live="polite" hidden>
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <span id="termsErrorText"></span>
+          </p>
+        </div>
+
+        <!-- Submit button -->
+        <button
+          type="submit"
+          class="btn-submit"
+          id="submitBtn"
+          aria-busy="false"
+        >
+          <span class="btn-submit__spinner" aria-hidden="true">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+          </span>
+          <span class="btn-submit__label">
+            Create Free Account
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </span>
+        </button>
+
+      </form>
+
+      <!-- Footer link -->
+      <p class="auth-card__footer">
+        Already have an account?
+        <a href="login.html" class="auth-card__footer-link">Log in</a>
+      </p>
+
+    </div><!-- /signupCard -->
+
+
+    <!-- ==============================
+         SUCCESS SCREEN
+         Hidden until signup completes.
+         Tells the user to verify their email.
+    ============================== -->
+    <div class="auth-card success-card" id="successCard" hidden>
+
+      <!-- Animated checkmark icon -->
+      <div class="success-card__icon" aria-hidden="true">
+        <div class="success-card__icon-ring"></div>
+        <i class="fa-solid fa-envelope-circle-check"></i>
+      </div>
+
+      <div class="success-card__body">
+        <h2 class="success-card__title">Check your email</h2>
+        <p class="success-card__message">
+          We sent a verification link to
+          <strong class="success-card__email" id="successEmail"></strong>.
+        </p>
+        <p class="success-card__hint">
+          Click the link in that email to verify your account,
+          then come back here to log in.
+        </p>
+      </div>
+
+      <!-- What to do next — step list -->
+      <ol class="success-steps" aria-label="Next steps">
+        <li class="success-steps__item">
+          <span class="success-steps__number" aria-hidden="true">1</span>
+          <span>Open your email inbox</span>
+        </li>
+        <li class="success-steps__item">
+          <span class="success-steps__number" aria-hidden="true">2</span>
+          <span>Find the email from <strong>JARA ∆</strong></span>
+        </li>
+        <li class="success-steps__item">
+          <span class="success-steps__number" aria-hidden="true">3</span>
+          <span>Click <strong>"Confirm your email"</strong></span>
+        </li>
+        <li class="success-steps__item">
+          <span class="success-steps__number" aria-hidden="true">4</span>
+          <span>Return here and log in</span>
+        </li>
+      </ol>
+
+      <!-- Actions -->
+      <div class="success-card__actions">
+        <a href="login.html" class="btn-submit btn-submit--filled">
+          <span class="btn-submit__label">
+            Go to Login
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </span>
+        </a>
+
+        <!-- Resend email -->
+        <button
+          type="button"
+          class="btn-resend"
+          id="resendBtn"
+          aria-label="Resend verification email"
+        >
+          Didn't receive it? Resend email
+        </button>
+      </div>
+
+    </div><!-- /successCard -->
+
+  </main>
+
+  <!-- Signup logic -->
+  <script src="../js/signup.js"></script>
+
+</body>
+  </html>
