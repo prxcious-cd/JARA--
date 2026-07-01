@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Search JARA ∆ — Find what you need on campus." />
+  <meta name="theme-color" content="#0A0A0F" />
+  <title>Search — JARA ∆</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <link rel="stylesheet" href="../css/search.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-client.js"></script>
+</head>
+
+<body>
+
+  <div class="page-glow" aria-hidden="true"></div>
+
+  <!-- ==============================
+       SEARCH HEADER
+  ============================== -->
+  <header class="sr-header">
+    <div class="sr-header__inner">
+
+      <!-- Search bar row -->
+      <div class="sr-bar-wrap">
+        <div class="sr-bar" role="search">
+          <i class="sr-bar__icon fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input
+            class="sr-bar__input"
+            type="search"
+            id="searchInput"
+            placeholder="Search anything..."
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            inputmode="search"
+            aria-label="Search JARA"
+            aria-autocomplete="list"
+            aria-controls="srResults"
+          />
+          <!-- Clear button — shown when input has text -->
+          <button
+            class="sr-bar__clear"
+            id="clearBtn"
+            type="button"
+            aria-label="Clear search"
+            hidden
+          >
+            <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <!-- Cancel link — only visible on mobile when bar is focused -->
+        <a href="../explore/index.html" class="sr-cancel" id="cancelLink">
+          Cancel
+        </a>
+      </div>
+
+      <!-- ==============================
+           FILTER CHIPS
+           Hidden until search has results
+      ============================== -->
+      <div
+        class="sr-filters"
+        id="srFilters"
+        role="group"
+        aria-label="Filter results"
+        hidden
+      >
+        <button class="filter-chip filter-chip--active" data-filter="all" aria-pressed="true">
+          All
+        </button>
+        <button class="filter-chip" data-filter="product" aria-pressed="false">
+          <i class="fa-solid fa-box" aria-hidden="true"></i> Products
+        </button>
+        <button class="filter-chip" data-filter="service" aria-pressed="false">
+          <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Services
+        </button>
+        <button class="filter-chip" data-filter="request" aria-pressed="false">
+          <i class="fa-solid fa-bullhorn" aria-hidden="true"></i> Requests
+        </button>
+        <button class="filter-chip" data-filter="business" aria-pressed="false">
+          <i class="fa-solid fa-store" aria-hidden="true"></i> Businesses
+        </button>
+        <button class="filter-chip" data-filter="nearby" aria-pressed="false">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i> Nearby
+        </button>
+        <button class="filter-chip" data-filter="price" aria-pressed="false" id="priceFilter">
+          <i class="fa-solid fa-naira-sign" aria-hidden="true"></i> Price
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ==============================
+       MAIN CONTENT AREA
+       Three panels — only one visible at a time.
+       1. #srDefault  — shown before any search
+       2. #srResults  — shown during/after search
+       3. #srEmpty    — shown when nothing matches
+  ============================== -->
+  <main class="sr-main" id="srMain">
+
+    <!-- ============================================================
+         PANEL 1: DEFAULT STATE
+         Shown before the user types anything.
+    ============================================================ -->
+    <div class="sr-panel" id="srDefault">
+
+      <!-- Live suggestions dropdown (shows while typing before results render) -->
+      <div class="sr-suggestions" id="srSuggestions" hidden role="listbox" aria-label="Search suggestions">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Recent searches -->
+      <section class="sr-default-section" aria-labelledby="recentHeading">
+        <div class="sr-default-section__header">
+          <h2 class="sr-default-section__title" id="recentHeading">
+            <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+            Recent
+          </h2>
+          <button class="sr-default-section__clear-all" id="clearRecent" type="button">
+            Clear all
+          </button>
+        </div>
+        <div class="chip-list" id="recentChips" aria-label="Recent searches">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Popular searches -->
+      <section class="sr-default-section" aria-labelledby="popularHeading">
+        <div class="sr-default-section__header">
+          <h2 class="sr-default-section__title" id="popularHeading">
+            <i class="fa-solid fa-fire" aria-hidden="true"></i>
+            Popular
+          </h2>
+        </div>
+        <div class="chip-list" id="popularChips" aria-label="Popular searches">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Browse by category -->
+      <section class="sr-default-section" aria-labelledby="categoryHeading">
+        <div class="sr-default-section__header">
+          <h2 class="sr-default-section__title" id="categoryHeading">
+            <i class="fa-solid fa-grid-2" aria-hidden="true"></i>
+            Browse by Category
+          </h2>
+        </div>
+        <div class="category-grid" id="categoryGrid" aria-label="Categories">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+    </div><!-- /srDefault -->
+
+
+    <!-- ============================================================
+         PANEL 2: SEARCH RESULTS
+    ============================================================ -->
+    <div class="sr-panel" id="srResults" hidden>
+
+      <!-- Results summary bar -->
+      <div class="sr-summary" id="srSummary" aria-live="polite" aria-atomic="true">
+        <span class="sr-summary__count" id="srCount"></span>
+        <span class="sr-summary__query" id="srQuery"></span>
+      </div>
+
+      <!-- Grouped result sections -->
+      <div id="srResultsBody">
+        <!-- Injected by JS — one group per type -->
+      </div>
+
+    </div><!-- /srResults -->
+
+
+    <!-- ============================================================
+         PANEL 3: EMPTY STATE
+    ============================================================ -->
+    <div class="sr-panel" id="srEmpty" hidden>
+      <div class="empty-state">
+        <div class="empty-state__illustration" aria-hidden="true">
+          <div class="empty-state__ring empty-state__ring--1"></div>
+          <div class="empty-state__ring empty-state__ring--2"></div>
+          <i class="fa-solid fa-magnifying-glass empty-state__icon"></i>
+        </div>
+        <h2 class="empty-state__title">We couldn't find that.</h2>
+        <p class="empty-state__sub">
+          No results for
+          <strong class="empty-state__query" id="emptyQuery">"your search"</strong>.
+          <br />Try a different word, or let the community help you.
+        </p>
+        <a href="../sell/index.html?type=request" class="btn-primary">
+          <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+          Create a Request
+        </a>
+        <p class="empty-state__hint">
+          Someone near you will respond.
+        </p>
+      </div>
+    </div><!-- /srEmpty -->
+
+  </main>
+
+
+  <!-- ==============================
+       PRICE FILTER MODAL
+       Slides up from bottom when "Price" filter is tapped.
+  ============================== -->
+  <div class="price-modal" id="priceModal" aria-modal="true" role="dialog" aria-label="Filter by price" hidden>
+    <div class="price-modal__backdrop" id="priceModalBackdrop"></div>
+    <div class="price-modal__sheet">
+      <div class="price-modal__handle" aria-hidden="true"></div>
+      <h3 class="price-modal__title">Filter by Price</h3>
+
+      <div class="price-modal__range">
+        <div class="price-modal__field">
+          <label class="price-modal__label" for="priceMin">Minimum (₦)</label>
+          <input
+            class="price-modal__input"
+            type="number"
+            id="priceMin"
+            placeholder="0"
+            min="0"
+            inputmode="numeric"
+          />
+        </div>
+        <div class="price-modal__sep" aria-hidden="true">—</div>
+        <div class="price-modal__field">
+          <label class="price-modal__label" for="priceMax">Maximum (₦)</label>
+          <input
+            class="price-modal__input"
+            type="number"
+            id="priceMax"
+            placeholder="Any"
+            min="0"
+            inputmode="numeric"
+          />
+        </div>
+      </div>
+
+      <div class="price-modal__presets" aria-label="Price range presets">
+        <button class="price-preset" data-min="0"      data-max="1000">Under ₦1,000</button>
+        <button class="price-preset" data-min="1000"   data-max="5000">₦1,000 – ₦5,000</button>
+        <button class="price-preset" data-min="5000"   data-max="20000">₦5,000 – ₦20,000</button>
+        <button class="price-preset" data-min="20000"  data-max="">Above ₦20,000</button>
+      </div>
+
+      <div class="price-modal__actions">
+        <button class="btn-ghost" id="priceClear">Clear</button>
+        <button class="btn-primary" id="priceApply">Apply</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==============================
+       BOTTOM NAVIGATION
+  ============================== -->
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="../explore/index.html" class="bottom-nav__item" aria-label="Explore">
+      <i class="fa-solid fa-compass" aria-hidden="true"></i>
+      <span>Explore</span>
+    </a>
+    <a href="../search/index.html" class="bottom-nav__item bottom-nav__item--active" aria-label="Search" aria-current="page">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <span>Search</span>
+    </a>
+    <a href="../sell/index.html" class="bottom-nav__item bottom-nav__item--create" aria-label="Create">
+      <span class="bottom-nav__create-btn" aria-hidden="true">
+        <i class="fa-solid fa-plus"></i>
+      </span>
+      <span>Create</span>
+    </a>
+    <a href="../activity/index.html" class="bottom-nav__item" aria-label="Activity">
+      <i class="fa-solid fa-bell" aria-hidden="true"></i>
+      <span>Activity</span>
+    </a>
+    <a href="../profile/index.html" class="bottom-nav__item" aria-label="My profile">
+      <i class="fa-solid fa-user" aria-hidden="true"></i>
+      <span>Me</span>
+    </a>
+  </nav>
+
+  <script src="../js/search.js"></script>
+</body>
+            </html>
