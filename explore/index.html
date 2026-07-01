@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="JARA ∆ — Explore what's available on your campus." />
+  <meta name="theme-color" content="#0A0A0F" />
+  <title>Explore — JARA ∆</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <link rel="stylesheet" href="../css/explore.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-client.js"></script>
+</head>
+
+<body>
+
+  <div class="page-glow" aria-hidden="true"></div>
+
+  <!-- ==============================
+       HEADER
+  ============================== -->
+  <header class="ex-header">
+    <div class="ex-header__inner">
+
+      <div class="ex-header__top">
+        <!-- Greeting + name -->
+        <div class="ex-header__greeting">
+          <p class="ex-header__greeting-text" id="greetingText">Good morning</p>
+          <h1 class="ex-header__name" id="greetingName">
+            Welcome <span class="ex-header__wave">👋</span>
+          </h1>
+        </div>
+        <!-- Notification bell -->
+        <a href="../activity/index.html" class="ex-header__bell" aria-label="Notifications">
+          <i class="fa-solid fa-bell" aria-hidden="true"></i>
+          <!-- Unread dot — shown by JS when there are unread notifications -->
+          <span class="ex-header__bell-dot" id="bellDot" hidden aria-label="Unread notifications"></span>
+        </a>
+      </div>
+
+      <!-- Sub-heading -->
+      <p class="ex-header__sub">What do you need today?</p>
+
+      <!-- ==============================
+           SEARCH BAR
+      ============================== -->
+      <a href="../search/index.html" class="ex-search" id="searchBar" aria-label="Search JARA">
+        <i class="fa-solid fa-magnifying-glass ex-search__icon" aria-hidden="true"></i>
+        <span class="ex-search__text" id="searchPlaceholder">Generator...</span>
+        <span class="ex-search__cursor" aria-hidden="true"></span>
+        <span class="ex-search__cta" aria-hidden="true">Search</span>
+      </a>
+
+    </div>
+  </header>
+
+  <!-- ==============================
+       MAIN SCROLL AREA
+  ============================== -->
+  <main class="ex-main" id="exMain">
+
+    <!-- ==============================
+         QUICK ACTIONS
+    ============================== -->
+    <section class="ex-section" aria-label="Quick actions">
+      <div class="quick-grid">
+
+        <a href="../search/index.html?type=product" class="quick-card quick-card--product" aria-label="Browse Products">
+          <div class="quick-card__glow" aria-hidden="true"></div>
+          <span class="quick-card__icon" aria-hidden="true">📦</span>
+          <span class="quick-card__label">Products</span>
+        </a>
+
+        <a href="../search/index.html?type=service" class="quick-card quick-card--service" aria-label="Browse Services">
+          <div class="quick-card__glow" aria-hidden="true"></div>
+          <span class="quick-card__icon" aria-hidden="true">🛠️</span>
+          <span class="quick-card__label">Services</span>
+        </a>
+
+        <a href="../search/index.html?type=request" class="quick-card quick-card--request" aria-label="Browse Requests">
+          <div class="quick-card__glow" aria-hidden="true"></div>
+          <span class="quick-card__icon" aria-hidden="true">📢</span>
+          <span class="quick-card__label">Requests</span>
+        </a>
+
+        <a href="../search/index.html?type=business" class="quick-card quick-card--business" aria-label="Browse Businesses">
+          <div class="quick-card__glow" aria-hidden="true"></div>
+          <span class="quick-card__icon" aria-hidden="true">🏪</span>
+          <span class="quick-card__label">Businesses</span>
+        </a>
+
+      </div>
+    </section>
+
+
+    <!-- ==============================
+         TRENDING NEAR YOU
+    ============================== -->
+    <section class="ex-section" aria-labelledby="trendingHeading">
+      <div class="ex-section__header">
+        <div class="ex-section__title-group">
+          <span class="ex-section__emoji" aria-hidden="true">🔥</span>
+          <h2 class="ex-section__title" id="trendingHeading">Trending Near You</h2>
+        </div>
+        <a href="../search/index.html?sort=trending" class="ex-section__see-all">
+          See all <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Horizontal scroll strip -->
+      <div class="card-strip" id="trendingStrip" role="list" aria-label="Trending listings">
+        <!-- Skeleton loaders — replaced by JS -->
+        <div class="card-skeleton" aria-hidden="true"></div>
+        <div class="card-skeleton" aria-hidden="true"></div>
+        <div class="card-skeleton" aria-hidden="true"></div>
+      </div>
+    </section>
+
+
+    <!-- ==============================
+         ACTIVE REQUESTS
+    ============================== -->
+    <section class="ex-section" aria-labelledby="requestsHeading">
+      <div class="ex-section__header">
+        <div class="ex-section__title-group">
+          <span class="ex-section__emoji" aria-hidden="true">📢</span>
+          <h2 class="ex-section__title" id="requestsHeading">Active Requests</h2>
+        </div>
+        <a href="../search/index.html?type=request" class="ex-section__see-all">
+          See all <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="request-list" id="requestsList" role="list" aria-label="Active requests">
+        <div class="card-skeleton card-skeleton--list" aria-hidden="true"></div>
+        <div class="card-skeleton card-skeleton--list" aria-hidden="true"></div>
+      </div>
+    </section>
+
+
+    <!-- ==============================
+         VERIFIED BY JARA
+    ============================== -->
+    <section class="ex-section" aria-labelledby="verifiedHeading">
+      <div class="ex-section__header">
+        <div class="ex-section__title-group">
+          <span class="ex-section__emoji" aria-hidden="true">⭐</span>
+          <h2 class="ex-section__title" id="verifiedHeading">Verified by JARA</h2>
+        </div>
+        <a href="../search/index.html?verified=true" class="ex-section__see-all">
+          See all <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="card-strip" id="verifiedStrip" role="list" aria-label="Verified listings">
+        <div class="card-skeleton" aria-hidden="true"></div>
+        <div class="card-skeleton" aria-hidden="true"></div>
+        <div class="card-skeleton" aria-hidden="true"></div>
+      </div>
+    </section>
+
+
+    <!-- ==============================
+         RECENTLY ADDED
+    ============================== -->
+    <section class="ex-section ex-section--last" aria-labelledby="recentHeading">
+      <div class="ex-section__header">
+        <div class="ex-section__title-group">
+          <span class="ex-section__emoji" aria-hidden="true">🆕</span>
+          <h2 class="ex-section__title" id="recentHeading">Recently Added</h2>
+        </div>
+        <a href="../search/index.html?sort=recent" class="ex-section__see-all">
+          See all <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Vertical grid for recent -->
+      <div class="recent-grid" id="recentGrid" role="list" aria-label="Recently added listings">
+        <div class="card-skeleton card-skeleton--tall" aria-hidden="true"></div>
+        <div class="card-skeleton card-skeleton--tall" aria-hidden="true"></div>
+      </div>
+    </section>
+
+  </main><!-- /ex-main -->
+
+
+  <!-- ==============================
+       BOTTOM NAVIGATION
+  ============================== -->
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="../explore/index.html" class="bottom-nav__item bottom-nav__item--active" aria-label="Explore" aria-current="page">
+      <i class="fa-solid fa-compass" aria-hidden="true"></i>
+      <span>Explore</span>
+    </a>
+    <a href="../search/index.html" class="bottom-nav__item" aria-label="Search">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <span>Search</span>
+    </a>
+    <a href="../sell/index.html" class="bottom-nav__item bottom-nav__item--create" aria-label="Create">
+      <span class="bottom-nav__create-btn" aria-hidden="true">
+        <i class="fa-solid fa-plus"></i>
+      </span>
+      <span>Create</span>
+    </a>
+    <a href="../activity/index.html" class="bottom-nav__item" aria-label="Activity">
+      <i class="fa-solid fa-bell" aria-hidden="true"></i>
+      <span>Activity</span>
+    </a>
+    <a href="../profile/index.html" class="bottom-nav__item" aria-label="My profile">
+      <i class="fa-solid fa-user" aria-hidden="true"></i>
+      <span>Me</span>
+    </a>
+  </nav>
+
+
+</body>
+<script src="../js/explore.js"></script>
+  </html>
